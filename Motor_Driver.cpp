@@ -3,14 +3,14 @@
 Motor_Driver::Motor_Driver(PinName motor_pin, PinName tacho_pin)
     :motor(motor_pin), tacho(tacho_pin){
     
-    this->tacho.rise(&this->Motor_Driver::tacho_rise_callback);
-    this->tacho_timer.attach(&this->Motor_Driver::calculate_speed_callback, SPEED_UPDATE_RATE);
+    this->tacho.rise(&this->tacho_rise_callback);
+    this->tacho_timer.attach(&this->calculate_speed_callback, SPEED_UPDATE_RATE_US);
 };
 
 void Motor_Driver::tacho_rise_callback(){
     tacho_timer.detach();
     this->pulse_count++;
-    tacho_timer.attach(&this->Motor_Driver:calculate_speed_callback, SPEED_UPDATE_RATE);
+    tacho_timer.attach(&this->calculate_speed_callback, SPEED_UPDATE_RATE_US);
 };
 
 void Motor_Driver::calculate_speed_callback(){
