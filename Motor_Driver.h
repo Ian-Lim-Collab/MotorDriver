@@ -4,7 +4,7 @@
 #define SPEED_UPDATE_RATE 1000000
 #define SPEED_UPDATE_RATE_US 1000000us
 
-#define DEBOUNCE_PERIOD 1500us
+#define DEBOUNCE_PERIO 7000us
 
 class Motor_Driver{
     public:

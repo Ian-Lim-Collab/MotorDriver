@@ -10,16 +10,16 @@ Motor_Driver::Motor_Driver(PinName motor_pin, PinName tacho_pin)
 
 void Motor_Driver::tacho_rise_callback(){   
     // tacho_timer.detach();
-    this->debounce_period.stop();
-    if(this->debounce_period.elapsed_time() > DEBOUNCE_PERIOD){
-        this->pulse_count++;
-    }
+    this->debounce_period.reset();
+    this->debounce_period.start();
     // tacho_timer.attach(callback(this,&Motor_Driver::calculate_speed_callback), SPEED_UPDATE_RATE_US);
 };
 
 void Motor_Driver::tacho_fall_callback(){
-    this->debounce_period.reset();
-    this->debounce_period.start();
+    this->debounce_period.stop();
+    if(this->debounce_period.elapsed_time() > DEBOUNCE_PERIOD){
+        this->pulse_count++;
+    }
 }
 
 void Motor_Driver::calculate_speed_callback(){
