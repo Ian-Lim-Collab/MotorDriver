@@ -1,10 +1,10 @@
 #pragma once 
 #include "mbed.h"
 
-#define SPEED_UPDATE_RATE 1000000
-#define SPEED_UPDATE_RATE_US 1000000us
+#define SPEED_UPDATE_RATE 600000.0F
+#define SPEED_UPDATE_RATE_US 600000us
 
-#define DEBOUNCE_PERIOD 7000us
+#define DEBOUNCE_PERIOD 14000us
 
 class Motor_Driver{
     public:
@@ -21,7 +21,7 @@ class Motor_Driver{
         
         uint16_t speed;
 
-        void tacho_rise_callback();
+        // void tacho_rise_callback();
         void tacho_fall_callback();
         void calculate_speed_callback();
 };
