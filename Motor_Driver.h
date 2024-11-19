@@ -12,13 +12,14 @@ class Motor_Driver{
         int getSpeed();
         // int setClosedLoopSpeed(int speed);
         int setOpenLoopSpeed(float speed);
-        uint16_t pulse_count;
-        Timer debounce_period;  
     protected:
         PwmOut motor;
         InterruptIn tacho;
-        Ticker tacho_timer; 
         
+        Ticker tacho_timer; 
+        Timer debounce_period;  
+        
+        uint16_t pulse_count;
         uint16_t speed;
 
         // void tacho_rise_callback();
