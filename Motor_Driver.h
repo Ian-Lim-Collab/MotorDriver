@@ -5,6 +5,7 @@
 #define SPEED_UPDATE_RATE_US 600000us
 
 #define DEBOUNCE_PERIOD 14000us
+#define MOTOR_PWM_PERIOD_US 2150
 
 class Motor_Driver{
     public:
@@ -20,7 +21,10 @@ class Motor_Driver{
         Timer debounce_period;  
         
         uint16_t pulse_count;
-        uint16_t speed;
+        uint16_t avg_speed;
+
+        uint16_t speed_array[4];
+        uint8_t speed_pointer = 0;
 
         // void tacho_rise_callback();
         void tacho_fall_callback();
