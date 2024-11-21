@@ -17,7 +17,7 @@ void Motor_Driver::tacho_fall_callback(){
 }
 
 void Motor_Driver::calculate_speed_callback(){
-    this->speed = ((float) this->pulse_count * 30.) * 1000000. / SPEED_UPDATE_RATE ;
+    this->avg_speed = ((float) this->pulse_count * 30.) * 1000000. / SPEED_UPDATE_RATE ;
     this->pulse_count = 0;
     speed_pointer++;
     avg_speed = speed_array[0] + speed_array[1] + speed_array[2] + speed_array[3];
