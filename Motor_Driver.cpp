@@ -19,9 +19,8 @@ void Motor_Driver::tacho_fall_callback(){
 void Motor_Driver::calculate_speed_callback(){
     this->avg_speed = ((float) this->pulse_count * 30.) * 1000000. / SPEED_UPDATE_RATE ;
     this->pulse_count = 0;
-    speed_pointer++;
     kalmanFilter();
-    avg_speed = avg_speed >> 2; // Divide by 2
+    // avg_speed = avg_speed >> 2; // Divide by 2
 };
 
 void Motor_Driver::kalmanFilter() {

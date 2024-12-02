@@ -23,7 +23,7 @@ class Motor_Driver{
 
         // Kalman filter parameters (tune these based on sensor noise and system dynamics)
         float Q = 0.01; // Process noise covariance
-        float R = 0.1; // Measurement noise covariance
+        float R = 1.0; // Measurement noise covariance
         float P = 1.0; // Estimated error covariance
         
         uint16_t pulse_count;
