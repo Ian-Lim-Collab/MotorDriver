@@ -17,12 +17,22 @@ void Motor_Driver::tacho_fall_callback(){
 }
 
 void Motor_Driver::calculate_speed_callback(){
-    this->speed_array[speed_pointer%4] = ((float) this->pulse_count * 30.) * 1000000. / SPEED_UPDATE_RATE ;
+    this->avg_speed = ((float) this->pulse_count * 30.) * 1000000. / SPEED_UPDATE_RATE ;
     this->pulse_count = 0;
     speed_pointer++;
-    avg_speed = speed_array[0] + speed_array[1] + speed_array[2] + speed_array[3];
+    kalmanFilter();
     avg_speed = avg_speed >> 2; // Divide by 2
 };
+
+void Motor_Driver::kalmanFilter() {
+    // Prediction step
+    P = P + Q;
+
+    // Update step
+    float K = P / (P + R);
+    x_hat = x_hat + K * (avg_speed - x_hat);
+    P = (1 - K) * P;
+}
 
 int Motor_Driver::setOpenLoopSpeed(float speed){
     this->motor.write(speed);
