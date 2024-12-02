@@ -20,13 +20,13 @@ class Motor_Driver{
         Ticker tacho_timer; 
         Timer debounce_period;  
         
-        uint16_t pulse_count;
-        uint16_t avg_speed;
+        // uint16_t pulse_count;
+        uint16_t speed;
 
-        uint16_t speed_array[4];
-        uint8_t speed_pointer = 0;
+        // uint16_t speed_array[4];
+        // uint8_t speed_pointer = 0;
 
         // void tacho_rise_callback();
         void tacho_fall_callback();
-        void calculate_speed_callback();
+        // void calculate_speed_callback();
 };
