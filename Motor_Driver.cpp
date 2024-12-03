@@ -3,15 +3,20 @@
 Motor_Driver::Motor_Driver(PinName motor_pin, PinName tacho_pin)
     :motor(motor_pin), tacho(tacho_pin){
     motor.period_us(MOTOR_PWM_PERIOD_US);
+    this->tacho.rise(callback(this,&Motor_Driver::tacho_rise_callback));
     this->tacho.fall(callback(this,&Motor_Driver::tacho_fall_callback));
+    this->clear_val.start();
     // this->tacho_timer.attach(callback(this, &Motor_Driver::calculate_speed_callback), SPEED_UPDATE_RATE_US);
 };
 
 void Motor_Driver::tacho_fall_callback(){
     this->debounce_period.stop();
     if(this->debounce_period.elapsed_time() > DEBOUNCE_PERIOD){
-        this->speed = 60.* 1000000. / this->.debounce_period.elapsed_time().count();
+        this->speed = 15* 1000000 / this->debounce_period.elapsed_time().count();
+        this->clear_val.reset();
     }
+}
+void Motor_Driver::tacho_rise_callback(){
     this->debounce_period.reset();
     this->debounce_period.start();
 }
@@ -30,6 +35,9 @@ int Motor_Driver::setOpenLoopSpeed(float speed){
 };
 
 int Motor_Driver::getSpeed(){
-    return this->avg_speed;
+    if (this->clear_val.elapsed_time() > CLEAR_TIMER){
+        return 0;
+    }
+    return this->speed;
 };
 
