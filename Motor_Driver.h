@@ -8,6 +8,8 @@
 #define DEBOUNCE_PERIOD 7000us
 #define MOTOR_PWM_PERIOD_US 2150
 
+#define AVERAGE_WINDOW 4
+
 class Motor_Driver{
     public:
         Motor_Driver(PinName motor_pin, PinName tacho_pin);
@@ -23,10 +25,10 @@ class Motor_Driver{
         Timer clear_val;
         
         // uint16_t pulse_count;
-        uint16_t speed;
+        uint16_t avg_speed;
 
-        // uint16_t speed_array[4];
-        // uint8_t speed_pointer = 0;
+        uint16_t speed_array[AVERAGE_WINDOW];
+        uint8_t speed_pointer = 0;
 
         // void tacho_rise_callback();
         void tacho_fall_callback();
