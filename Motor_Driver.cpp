@@ -41,6 +41,6 @@ int Motor_Driver::getSpeed(){
     if (this->clear_val.elapsed_time() > CLEAR_TIMER){
         return 0;
     }
-    return this->speed;
+    return this->avg_speed;
 };
 
