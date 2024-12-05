@@ -1,11 +1,13 @@
-#pragma once 
+ #pragma once 
 #include "mbed.h"
 
-#define SPEED_UPDATE_RATE 600000.0F
-#define SPEED_UPDATE_RATE_US 600000us
+#define SPEED_UPDATE_RATE 150000.0F
+#define SPEED_UPDATE_RATE_US 150000us
+
+#define MAX_SPEED 2500 //RPM
 
 #define CLEAR_TIMER 200000us
-#define DEBOUNCE_PERIOD 6500us
+#define DEBOUNCE_PERIOD 7000us
 #define MOTOR_PWM_PERIOD_US 2150
 
 #define AVERAGE_WINDOW 4
@@ -16,17 +18,19 @@ class Motor_Driver{
         int getSpeed();
         // int setClosedLoopSpeed(int speed);
         int setOpenLoopSpeed(float speed);
+        Timer speed_update_timer;
     protected:
         PwmOut motor;
         InterruptIn tacho;
         
         Ticker tacho_timer; 
         Timer debounce_period; 
-        Timer speed_update_timer;
         Timer clear_val;
         
         // uint16_t pulse_count;
         uint16_t avg_speed;
+        uint16_t sum_speed;
+        volatile uint16_t inst_speed; 
 
         uint16_t speed_array[AVERAGE_WINDOW];
         uint8_t speed_pointer = 0;
@@ -34,5 +38,5 @@ class Motor_Driver{
         // void tacho_rise_callback();
         void tacho_fall_callback();
         void tacho_rise_callback();
-        // void calculate_speed_callback();
+        void calculate_speed_callback();
 };
