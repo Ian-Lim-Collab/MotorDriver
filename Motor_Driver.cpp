@@ -16,7 +16,7 @@ void Motor_Driver::tacho_fall_callback(){
         this->speed_update_timer.stop();
         this->inst_speed = (30000000) / this->speed_update_timer.elapsed_time().count();
         if(inst_speed < MAX_SPEED){
-            this->speed_array[speed_pointer%AVERAGE_WINDOW] = inst_speed;
+            this->speed_array[speed_pointer%AVERAGE_WINDOW] = inst_speed > 1200 ? inst_speed - inst_speed*2/50 + 40 : inst_speed ;
             speed_pointer++;
         } 
         this->speed_update_timer.reset();
