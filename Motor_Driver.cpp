@@ -12,7 +12,8 @@ Motor_Driver::Motor_Driver(PinName motor_pin, PinName tacho_pin)
 void Motor_Driver::tacho_fall_callback(){
     this->debounce_period.stop();
     if(this->debounce_period.elapsed_time() > DEBOUNCE_PERIOD){
-        this->avg_speed = (15000000) / this->debounce_period.elapsed_time().count();
+        this->avg_speed = (15000000) / this->speed_update_timer.elapsed_time().count();
+        this->speed_update_timer.reset();
         this->clear_val.reset();
     }
 }

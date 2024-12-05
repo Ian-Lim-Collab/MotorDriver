@@ -22,6 +22,7 @@ class Motor_Driver{
         
         Ticker tacho_timer; 
         Timer debounce_period; 
+        Timer speed_update_timer;
         Timer clear_val;
         
         // uint16_t pulse_count;
